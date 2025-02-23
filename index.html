@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="E-commerce website for online shopping">
+    <meta name="author" content="Your Name">
+    <title>E-Mart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>E-Mart</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#mobiles">Mobiles</a></li>
+                <li><a href="#fashion">Fashion</a></li>
+                <li><a href="#electronics">Electronics</a></li>
+                <li><a href="#furniture">Furniture</a></li>
+            </ul>
+        </nav>
+        <div id="cart-btn" class="cart-btn" onclick="openCartModal()">
+            <img src="data:image/png;base64,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" alt="Cart">
+            <div>Cart: </div>
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <!-- Product Sections -->
+    <section id="mobiles">
+        <h2>Mobiles</h2>
+        <div class="product-listing">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1vYmlsZXxlbnwwfHwwfHx8MA%3D%3D" alt="Mobile 1">
+                <h3>iPhone 15</h3>
+                <p>$499.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1514417034809-c7b296354f07?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGFuZHJvaWQlMjBtb2JpbGUlMjBwaWN8ZW58MHx8MHx8fDA%3D" alt="Mobile 2">
+                <h3>Samsung J6</h3>
+                <p>$399.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1600087626014-e652e18bbff2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YW5kcm9pZCUyMG1vYmlsZSUyMHBpY3xlbnwwfHwwfHx8MA%3D%3D" alt="Mobile 3">
+                <h3>One Plus 3</h3>
+                <p>$299.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="fashion">
+        <h2>Fashion</h2>
+        <div class="product-listing">
+            <div class="product-card">
+                <img src="https://plus.unsplash.com/premium_photo-1675186049366-64a655f8f537?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2xvdGhlc3xlbnwwfHwwfHx8MA%3D%3D" alt="Fashion 1">
+                <h3>Formal coat</h3>
+                <p>$49.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGNsb3RoZXN8ZW58MHx8MHx8fDA%3D" alt="Fashion 2">
+                <h3>Trend jacket</h3>
+                <p>$79.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://media.istockphoto.com/id/1180368192/photo/indian-bridegroom-wears-ethnic-or-traditional-cloths.webp?a=1&b=1&s=612x612&w=0&k=20&c=oBPW4rRowX2oAJKQqNCcZu19lWzUcKegCjIFO7jvcAU=" alt="Fashion 3">
+                <h3>Wedding style</h3>
+                <p>$59.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="electronics">
+        <h2>Electronics</h2>
+        <div class="product-listing">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1511385348-a52b4a160dc2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D" alt="Electronics 1">
+                <h3>Macbook 1   </h3>
+                <p>$199.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://plus.unsplash.com/premium_photo-1675615667689-40378da89573?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bGVkJTIwdHZ8ZW58MHx8MHx8fDA%3D" alt="Electronics 2">
+                <h3>LED full screen</h3>
+                <p>$249.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWFycGhvbmV8ZW58MHx8MHx8fDA%3D" alt="Electronics 3">
+                <h3>High bass headphone</h3>
+                <p>$159.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="furniture">
+        <h2>Furniture</h2>
+        <div class="product-listing">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c29mYXxlbnwwfHwwfHx8MA%3D%3D" alt="Furniture 1">
+                <h3>Premium Sofa set</h3>
+                <p>$599.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2hhaXJ8ZW58MHx8MHx8fDA%3D" alt="Furniture 2">
+                <h3>Chair</h3>
+                <p>$799.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://plus.unsplash.com/premium_photo-1674815329400-f17578e2b03b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZGlubmluZyUyMHRhYmxlfGVufDB8fDB8fHww" alt="Furniture 3">
+                <h3>Dinning set</h3>
+                <p>$899.99</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content"> <!-- Add this wrapper -->
+            <button onclick="closeCartModal()">Close</button> 
+            <div id="cart-items"></div>
+            <div id="cart-total"></div> 
+            <button id="checkout-button" style="display: none;" onclick="handleCheckout()">Proceed to Checkout</button> <!-- Added Checkout Button -->
+        </div>
+    </div>
+    
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 E-Mart. All rights reserved.</p>
+        </footer>
+    
+    <script src="script.js"></script>
+</body>
+
+</html>
