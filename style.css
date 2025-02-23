@@ -132,6 +132,42 @@ nav ul li a {
     margin: 5px 0 0;
 }
 
+/* Cart Modal */
+#cart-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    z-index: 9999;
+}
+
+/* Cart Items Container with Scroll */
+#cart-items {
+    max-height: 60vh; /* Max height of 60% of viewport height */
+    overflow-y: auto; /* Allow scrolling if the content overflows */
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Cart Modal Close Button */
+#cart-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+
 /* Product Listings */
 section {
     margin: 2rem 0;
@@ -250,7 +286,7 @@ input, textarea {
 
 button {
     width: 100%;
-    padding: 15px;
+    /* padding: 15px; */
     background-color: #4CAF50;
     color: white;
     border: none;
