@@ -104,6 +104,8 @@ window.addEventListener('click', function(event) {
     }
 });
 
+
+
 function handleCheckout() {
     // alert('Proceeding to checkout');
     // Optionally, you can handle form submission or redirect to a checkout page
@@ -113,4 +115,20 @@ function handleCheckout() {
     //     alert("Nothing in the cart")
     // }
     window.location.href = "checkout.html";
+}
+
+
+
+
+function toggleMenu() {
+    const navMenu = document.querySelector('nav ul');
+    navMenu.classList.toggle('show'); // Toggle the 'show' class on the nav menu
+    
+    const hamburger = document.querySelector('.hamburger');
+    // Change the icon to 'X' when the menu is open
+    if (navMenu.classList.contains('show')) {
+        hamburger.innerHTML = '&#10005;'; // 'X' icon
+    } else {
+        hamburger.innerHTML = '&#9776;'; // Hamburger icon
+    }
 }
