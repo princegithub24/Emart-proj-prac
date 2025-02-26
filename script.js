@@ -1,105 +1,116 @@
-// Cart items array with quantity support
-let cartItems = [];
+let cart = [];
+const modal=document.getElementById('cart-modal') ;
 
-// Function to add an item to the cart
+
 function addToCart(button) {
     const productCard = button.closest('.product-card');
     const productName = productCard.querySelector('h3').textContent;
-    const price = parseFloat(productCard.querySelector('p').textContent.replace('$', '').trim());
-    const imageUrl = productCard.querySelector('img').src;
+    const productPrice = productCard.querySelector('p').textContent;
+    const productImage = productCard.querySelector('img').src;
 
-    // Check if the item is already in the cart
-    const existingItem = cartItems.find(item => item.name === productName);
-    if (existingItem) {
-        // Increase quantity if already in the cart
-        existingItem.quantity += 1;
+    // Check if the product is already in the cart
+    const existingProduct = cart.find(item => item.name === productName);
+    if (existingProduct) {
+        // If the product is already in the cart, just alert the user
+        alert(`${productName} is already in the cart.`);
     } else {
-        // Add a new item with quantity 1
-        cartItems.push({ name: productName, price: price, imageUrl: imageUrl, quantity: 1 });
+        // If it's a new product, add it to the cart
+        cart.push({ name: productName, price: productPrice, image: productImage, quantity: 1 });
+        // alert("Added to cart");
     }
 
-    document.getElementById("cart-count").textContent = cartItems.length;
-    alert(`${productName} added to your cart.`);
+    // Update cart UI
+    updateCartModal();
 }
 
-// Function to remove an item from the cart
-function removeFromCart(index) {
-    cartItems.splice(index, 1);
-    updateCartModal(); // Update the modal after removal
-}
 
-// Function to increase item quantity
-function increaseQuantity(index) {
-    cartItems[index].quantity += 1;
-    updateCartModal(); // Update the modal after quantity change
-}
-
-// Function to decrease item quantity
-function decreaseQuantity(index) {
-    if (cartItems[index].quantity > 1) {
-        cartItems[index].quantity -= 1;
-    }
-    updateCartModal(); // Update the modal after quantity change
-}
-
-// Function to update the cart modal
 function updateCartModal() {
-    const cartModal = document.getElementById("cart-modal");
-    const cartItemsDiv = document.getElementById("cart-items");
-    const cartTotalDiv = document.getElementById("cart-total");
-    const checkoutButton = document.getElementById("checkout-button");
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartTotal = document.getElementById('cart-total');
 
-    // Show cart items in the modal
-    if (cartItems.length === 0) {
-        cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
-        checkoutButton.style.display = "none"; // Hide checkout button if cart is empty
-        cartTotalDiv.innerHTML = ""; // Clear total
-    } else {
-        cartItemsDiv.innerHTML = cartItems.map((item, index) =>
-            `<div class="cart-item">
-                <img src="${item.imageUrl}" alt="${item.name}" class="cart-item-image">
-                <div class="cart-item-details">
-                    <h4>${item.name}</h4>
-                    <p>$${item.price} x ${item.quantity}</p>
-                    <div class="quantity-controls">
-                        <button onclick="decreaseQuantity(${index})">-</button>
-                        <button onclick="increaseQuantity(${index})">+</button>
-                    </div>
-                    <button onclick="removeFromCart(${index})" class="remove-item">Remove</button>
-                </div>
-            </div>`).join("");
+    // Clear the cart items container
+    cartItemsContainer.innerHTML = '';
 
-        // Calculate total price
-        const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-        cartTotalDiv.innerHTML = `Total: $${totalPrice.toFixed(2)}`; // Display total
+    let total = 0;
 
-        checkoutButton.style.display = "block"; // Show checkout button if cart has items
+    cart.forEach(item => {
+        // Create cart item element
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+
+        cartItem.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div class="cart-item-details">
+                <h4>${item.name}</h4>
+                <p>${item.price}</p>
+            </div>
+            <div class="quantity-controls">
+                <button onclick="changeQuantity('${item.name}', -1)">-</button>
+                <span>${item.quantity}</span>
+                <button onclick="changeQuantity('${item.name}', 1)">+</button>
+            </div>
+            <button class="remove-item" onclick="removeFromCart('${item.name}')">Remove</button>
+        `;
+
+        // Append cart item to container
+        cartItemsContainer.appendChild(cartItem);
+
+        // Update total price
+        total += parseFloat(item.price.replace('$', '')) * item.quantity;
+    });
+
+    // Update cart count and total
+    cartCount.textContent = cart.length;
+    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+}
+
+function changeQuantity(productName, delta) {
+    const product = cart.find(item => item.name === productName);
+    if (product) {
+        product.quantity += delta;
+        if (product.quantity <= 0) {
+            removeFromCart(productName);
+        } else {
+            updateCartModal();
+        }
     }
-
-    cartModal.style.display = "flex"; // Show the modal
 }
 
-// Function to open the cart modal
+function removeFromCart(productName) {
+    cart = cart.filter(item => item.name !== productName);
+    updateCartModal();
+
+    // Close the modal if the cart is empty
+    if (cart.length === 0) {
+        closeCartModal();
+    }
+}
+
 function openCartModal() {
-    updateCartModal(); // Reuse the update function to populate the modal
+    document.getElementById('cart-modal').style.display = 'flex';
+
 }
 
-// Function to close the cart modal
+
 function closeCartModal() {
-    document.getElementById("cart-modal").style.display = "none"; // Hide the modal
+    modal.style.display = 'none'; 
 }
+window.addEventListener('click', function(event) {
+    // Check if the click is outside the modal content
+    if (event.target ===modal) {
+        modal.style.display = 'none'; // Close the modal by setting display to 'none'
+        // closeCartModal()
+    }
+});
 
-// Function to handle the checkout process and redirect to checkout page
 function handleCheckout() {
-    // Hide the "Proceed to Checkout" button after clicking
-    const checkoutButton = document.getElementById("checkout-button");
-    checkoutButton.style.display = "none";
+    // alert('Proceeding to checkout');
+    // Optionally, you can handle form submission or redirect to a checkout page
 
-    // Optionally, you can show an alert or confirmation that the checkout is proceeding
-    // alert('Proceeding to checkout...');
-
-    // Redirect the user to the checkout page
-    window.location.href = "checkout.html";  // This redirects to checkout.html
-
-    // You can also log the cart or send it to a backend here if needed, but for now we are just redirecting.
+    // let cart=cart.filter(item => item.name !== productName)
+    // if(cart.length==0){
+    //     alert("Nothing in the cart")
+    // }
+    window.location.href = "checkout.html";
 }

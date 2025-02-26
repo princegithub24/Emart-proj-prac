@@ -15,4 +15,14 @@ document.getElementById('checkout-form').addEventListener('submit', function(eve
 
     // Optionally, you can also update the page with a success message
     document.getElementById('order-status').textContent = 'Your order has been placed successfully!';
+
+    // Clear the form fields after the order is placed
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('address').value = '';
 });
+
+// Function to redirect to the home page
+function goHome() {
+    window.location.href = 'index.html'; // Redirect to the main index.html page
+}

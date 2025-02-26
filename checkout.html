@@ -22,11 +22,14 @@
                 <label for="address">Address:</label>
                 <textarea id="address" name="address" rows="4" required></textarea>
             </div>
-            <button type="submit" id="place-order">Place Order</button>
+            
+            <p id="order-status">
+                <button type="submit" id="place-order">Place Order</button>
+                <!-- Home button to return to the main page -->
+                <button id="home-button" onclick="goHome()">Home Page</button></p>
         </form>
-        <p id="order-status"></p>
+        
     </div>
-
     <script src="checkout.js"></script>
 </body>
 </html>
